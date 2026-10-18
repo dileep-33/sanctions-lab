@@ -207,9 +207,10 @@ jobs:
 
           claude \
             --model "$MODEL_FLAG" \
-            --output-format stream-json \
+            --output-format stream-json --verbose \
             -p "$PCI_PROMPT" \
-            2>/dev/null \
+            2>>ci_reports/claude_stderr.txt \
+            | tee -a ci_reports/claude_raw.jsonl \
             | python3 -c "
           import sys, json, re
 
@@ -430,9 +431,10 @@ jobs:
           # Run Claude-as-Judge in headless mode
           claude \
             --model sonnet \
-            --output-format stream-json \
+            --output-format stream-json --verbose \
             -p "$JUDGE_PROMPT" \
-            2>/dev/null \
+            2>>ci_reports/claude_stderr.txt \
+            | tee -a ci_reports/claude_raw.jsonl \
             | python3 -c "
           import sys, json, re
 
