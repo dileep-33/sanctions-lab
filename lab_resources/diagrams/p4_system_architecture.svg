@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="620" viewBox="0 0 980 620">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5d6d7e"/>
+    </marker>
+  </defs>
+  <rect width="980" height="620" fill="#ffffff"/>
+  <rect x="0" y="0" width="980" height="40" fill="#2c3e50"/>
+  <text x="20" y="26" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#ffffff" font-weight="600">Module 6 — Project 4: Full Agentic Workflow (Sanctions Screening)</text>
+
+  <!-- Phase 1 -->
+  <rect x="20" y="60" width="220" height="130" rx="8" fill="#eaf2fb" stroke="#2e86de" stroke-width="1.5"/>
+  <text x="35" y="82" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#1b4f72" font-weight="700">Phase 1 — Analysis</text>
+  <text x="35" y="104" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#2e4053">banking-api MCP</text>
+  <text x="35" y="120" font-family="Consolas, monospace" font-size="10" fill="#2e4053">get_compliance_pipeline()</text>
+  <text x="35" y="144" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#2e4053">→ docs/sanctions_</text>
+  <text x="35" y="160" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#2e4053">   screening_design.md</text>
+  <text x="35" y="178" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#5d6d7e">insertion point · schema · AML contract</text>
+
+  <!-- Phase 2 -->
+  <rect x="270" y="60" width="300" height="230" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="285" y="82" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#186a3b" font-weight="700">Phase 2 — Sub-Agent Execution</text>
+
+  <rect x="285" y="94" width="270" height="30" rx="5" fill="#ffffff" stroke="#27ae60"/>
+  <text x="295" y="113" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#186a3b">sanctions-researcher → data model</text>
+
+  <rect x="285" y="130" width="270" height="30" rx="5" fill="#ffffff" stroke="#27ae60"/>
+  <text x="295" y="149" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#186a3b">code-writer → sanctions_check.py + Skills.md</text>
+
+  <rect x="285" y="166" width="270" height="30" rx="5" fill="#ffffff" stroke="#27ae60"/>
+  <text x="295" y="185" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#186a3b">test-generator → tests/test_sanctions_check.py</text>
+
+  <rect x="285" y="202" width="270" height="30" rx="5" fill="#d5f5e3" stroke="#186a3b" stroke-width="1.5"/>
+  <text x="295" y="221" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#186a3b" font-weight="600">Coordination pass — reconcile data model</text>
+
+  <text x="285" y="268" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#5d6d7e">via Claude Code Task tool</text>
+
+  <!-- Phase 3 -->
+  <rect x="610" y="60" width="200" height="130" rx="8" fill="#fef5e7" stroke="#d68910" stroke-width="1.5"/>
+  <text x="625" y="82" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#7e5109" font-weight="700">Phase 3 — Hardening</text>
+  <text x="625" y="106" font-family="Consolas, monospace" font-size="10" fill="#2e4053">/security-review</text>
+  <text x="625" y="124" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#2e4053">PostToolUse bandit hook</text>
+  <text x="625" y="146" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#2e4053">cache_control: ephemeral</text>
+  <text x="625" y="162" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#2e4053">on Skills.md preamble</text>
+
+  <!-- Phase 4 -->
+  <rect x="830" y="60" width="130" height="230" rx="8" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="845" y="82" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5b2c6f" font-weight="700">Phase 4</text>
+  <text x="845" y="98" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5b2c6f" font-weight="700">GitHub Delivery</text>
+  <text x="845" y="122" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#2e4053">create_branch</text>
+  <text x="845" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#2e4053">push_files</text>
+  <text x="845" y="158" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#2e4053">create_pull_request</text>
+  <text x="845" y="182" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#5d6d7e">feature/sanctions-</text>
+  <text x="845" y="196" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#5d6d7e">screening</text>
+
+  <!-- Arrows between phases -->
+  <line x1="240" y1="125" x2="268" y2="125" stroke="#5d6d7e" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="570" y1="125" x2="608" y2="125" stroke="#5d6d7e" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="810" y1="125" x2="828" y2="125" stroke="#5d6d7e" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- CI Gate -->
+  <rect x="270" y="340" width="690" height="120" rx="8" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="285" y="365" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#78281f" font-weight="700">GitHub Actions — claude-security-gate.yml (on pull_request)</text>
+
+  <rect x="285" y="378" width="300" height="60" rx="5" fill="#ffffff" stroke="#c0392b"/>
+  <text x="295" y="398" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#78281f" font-weight="600">pci-dss-check</text>
+  <text x="295" y="416" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#5d6d7e">bandit + headless claude -p on diff</text>
+  <text x="295" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#5d6d7e">must find zero critical/high</text>
+
+  <rect x="605" y="378" width="330" height="60" rx="5" fill="#ffffff" stroke="#c0392b"/>
+  <text x="615" y="398" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#78281f" font-weight="600">compliance-scoring</text>
+  <text x="615" y="416" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#5d6d7e">Claude-as-Judge 1–5 rubric</text>
+  <text x="615" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#5d6d7e">gate requires score ≥ 4</text>
+
+  <line x1="440" y1="438" x2="440" y2="450" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="770" y1="438" x2="770" y2="450" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="440" y="450" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#78281f"> </text>
+
+  <rect x="360" y="0" width="0" height="0"/>
+  <line x1="895" y1="290" x2="605" y2="338" stroke="#5d6d7e" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <text x="700" y="320" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#5d6d7e">PR opened → triggers gate</text>
+
+  <line x1="440" y1="460" x2="440" y2="490" stroke="#186a3b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="770" y1="460" x2="770" y2="490" stroke="#186a3b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="270" y="500" width="690" height="60" rx="8" fill="#eafaf1" stroke="#186a3b" stroke-width="1.5"/>
+  <text x="450" y="536" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#186a3b" font-weight="700">gate-summary: both jobs pass → PR eligible for merge</text>
+
+  <text x="20" y="600" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#95a5a6">Static diagram (offline / LMS). Mermaid version: Guided_Activity.md → Activity 0.</text>
+</svg>
