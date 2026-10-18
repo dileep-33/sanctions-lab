@@ -40,7 +40,9 @@ env:
   ANTHROPIC_AUTH_TOKEN: ${{ secrets.OPENROUTER_API_KEY }}
   ANTHROPIC_API_KEY: ""
   ANTHROPIC_DEFAULT_SONNET_MODEL: "~anthropic/claude-sonnet-latest"
+  ANTHROPIC_DEFAULT_HAIKU_MODEL: "~anthropic/claude-haiku-latest"
   CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1"
+  CLAUDE_CODE_MAX_OUTPUT_TOKENS: "4000"
 
 permissions:
   contents: read
@@ -199,13 +201,17 @@ jobs:
           Respond with ONLY valid JSON, no other text."
           
           # Run Claude Code in headless mode with stream-json output
+          # Use haiku if ANTHROPIC_DEFAULT_HAIKU_MODEL is set, otherwise sonnet
+          MODEL_FLAG="${ANTHROPIC_DEFAULT_HAIKU_MODEL:+haiku}"
+          MODEL_FLAG="${MODEL_FLAG:-sonnet}"
+
           claude \
-            --model claude-haiku-4-5 \
+            --model "$MODEL_FLAG" \
             --output-format stream-json \
             -p "$PCI_PROMPT" \
             2>/dev/null \
             | python3 -c "
-          import sys, json
+          import sys, json, re
 
           # Parse stream-json events to extract the final text content
           result_text = ''
@@ -215,13 +221,25 @@ jobs:
                   continue
               try:
                   event = json.loads(line)
-                  # Extract content from stream events
-                  if event.get('type') == 'content_block_delta':
+                  # Handle final result event (priority)
+                  if event.get('type') == 'result':
+                      result_text = event.get('result', result_text)
+                  # Fallback: extract content from stream events
+                  elif event.get('type') == 'content_block_delta':
                       delta = event.get('delta', {})
                       if delta.get('type') == 'text_delta':
                           result_text += delta.get('text', '')
               except json.JSONDecodeError:
                   continue
+
+          # Strip markdown code fences and extract JSON
+          result_text = re.sub(r'\`\`\`json\n?', '', result_text)
+          result_text = re.sub(r'\n?\`\`\`', '', result_text)
+          # Keep only text from first { to last }
+          first_brace = result_text.find('{')
+          last_brace = result_text.rfind('}')
+          if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
+              result_text = result_text[first_brace:last_brace+1]
 
           print(result_text)
           " > ci_reports/claude_pci_analysis.json 2>/dev/null || echo '{"overall_pci_status": "ERROR", "critical_high_count": 0, "summary": "Claude Code analysis failed"}' > ci_reports/claude_pci_analysis.json
@@ -411,12 +429,12 @@ jobs:
           
           # Run Claude-as-Judge in headless mode
           claude \
-            --model claude-sonnet-4-5 \
+            --model sonnet \
             --output-format stream-json \
             -p "$JUDGE_PROMPT" \
             2>/dev/null \
             | python3 -c "
-          import sys, json
+          import sys, json, re
 
           result_text = ''
           for line in sys.stdin:
@@ -425,12 +443,26 @@ jobs:
                   continue
               try:
                   event = json.loads(line)
-                  if event.get('type') == 'content_block_delta':
+                  # Handle final result event (priority)
+                  if event.get('type') == 'result':
+                      result_text = event.get('result', result_text)
+                  # Fallback: extract content from stream events
+                  elif event.get('type') == 'content_block_delta':
                       delta = event.get('delta', {})
                       if delta.get('type') == 'text_delta':
                           result_text += delta.get('text', '')
               except json.JSONDecodeError:
                   continue
+
+          # Strip markdown code fences and extract JSON
+          result_text = re.sub(r'\`\`\`json\n?', '', result_text)
+          result_text = re.sub(r'\n?\`\`\`', '', result_text)
+          # Keep only text from first { to last }
+          first_brace = result_text.find('{')
+          last_brace = result_text.rfind('}')
+          if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
+              result_text = result_text[first_brace:last_brace+1]
+
           print(result_text)
           " > ci_reports/compliance_score.json 2>/dev/null \
             || echo '{\"score\": 0, \"grade\": \"ERROR\", \"gate_decision\": \"FAIL\", \"reviewer_summary\": \"Scoring failed — manual review required\"}' > ci_reports/compliance_score.json
